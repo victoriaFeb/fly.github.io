@@ -7871,3 +7871,43 @@ blockquote.pullquote.right {
     transform: rotate(360deg);
   }
 }
+.pagination-related .info-2 {
+  display: none !important;
+}
+.pagination-related.no-desc .info-2 {
+  display: none !important;
+}
+.pagination-related:hover .info-2 {
+  display: none !important;
+}
+body {
+  font-family: 'Microsoft YaHei', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.8; /* 调整行高为1.8倍 */
+}
+p,
+div,
+span,
+li,
+td,
+th {
+  font-size: 1em;
+  word-spacing: normal;
+  letter-spacing: normal;
+}
+body * {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body p::after,
+body p::before,
+body div::after,
+body div::before {
+  content: '';
+  white-space: pre;
+}
+body p,
+body div {
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
