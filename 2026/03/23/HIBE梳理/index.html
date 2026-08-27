@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HIBE梳理 | Fly to the Better</title><meta name="author" content="fly"><meta name="copyright" content="fly"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Hierarchical Identity Based Encryption with Constant Size Ciphertext Hierarchical Identity Based Encryption with Constant Size Ciphertext HIBE 相关论文  C. Gentry and A. Silverberg. Hierarchical ID-based">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HIBE梳理">
+<meta property="og:url" content="https://victoriafeb.github.io/fly.github.io/2026/03/23/HIBE%E6%A2%B3%E7%90%86/index.html">
+<meta property="og:site_name" content="Fly to the Better">
+<meta property="og:description" content="Hierarchical Identity Based Encryption with Constant Size Ciphertext Hierarchical Identity Based Encryption with Constant Size Ciphertext HIBE 相关论文  C. Gentry and A. Silverberg. Hierarchical ID-based">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://victoriafeb.github.io/fly.github.io/img/my-icon.jpg">
+<meta property="article:published_time" content="2026-03-23T01:34:28.000Z">
+<meta property="article:modified_time" content="2026-03-25T14:51:29.069Z">
+<meta property="article:author" content="fly">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://victoriafeb.github.io/fly.github.io/img/my-icon.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HIBE梳理",
+  "url": "https://victoriafeb.github.io/fly.github.io/2026/03/23/HIBE%E6%A2%B3%E7%90%86/",
+  "image": "https://victoriafeb.github.io/fly.github.io/img/my-icon.jpg",
+  "datePublished": "2026-03-23T01:34:28.000Z",
+  "dateModified": "2026-03-25T14:51:29.069Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "fly",
+      "url": "https://github.com/victoriaFeb"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/fly.github.io/img/favicon.ico"><link rel="canonical" href="https://victoriafeb.github.io/fly.github.io/2026/03/23/HIBE%E6%A2%B3%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/fly.github.io/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/fly.github.io/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HIBE梳理',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="bg-animation" id="web_bg"></div><script>(() => {
+  const arr = ["background-image: url(/fly.github.io/img/my-bg.jpg);","background-image: url(/fly.github.io/img/bg1.jpg);","background-image: url(/fly.github.io/img/bg2.jpg);"]
+  const webBgDiv = document.getElementById('web_bg')
+
+  const setRandomBg = () => {
+    webBgDiv.style = arr[Math.floor(Math.random() * arr.length)]
+    requestAnimationFrame(() => webBgDiv.classList.add('bg-animation'))
+  }
+
+  document.addEventListener('pjax:send', () => {
+    webBgDiv.style = ''
+    webBgDiv.classList.remove('bg-animation')
+  })
+
+  document.addEventListener('pjax:complete', setRandomBg)
+  document.addEventListener('DOMContentLoaded', setRandomBg)
+})()
+</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/fly.github.io/img/my-icon.jpg" onerror="this.onerror=null;this.src='/fly.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/fly.github.io/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/fly.github.io/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/fly.github.io/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/fly.github.io/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/fly.github.io/friends/"><i class="fa-fw fas fa-link"></i><span> Friends</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/victoriaFeb"><i class="fa-fw fab fa-github"></i><span> GitHub</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/fly.github.io/"></a><a class="nav-page-title" href="/fly.github.io/"><span class="site-name">HIBE梳理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/fly.github.io/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/fly.github.io/friends/"><i class="fa-fw fas fa-link"></i><span> Friends</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/victoriaFeb"><i class="fa-fw fab fa-github"></i><span> GitHub</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HIBE梳理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-03-23T01:34:28.000Z" title="Created 2026-03-23 09:34:28">2026-03-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-03-25T14:51:29.069Z" title="Updated 2026-03-25 22:51:29">2026-03-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Hierarchical-Identity-Based-Encryption-with-Constant-Size-Ciphertext"><a href="#Hierarchical-Identity-Based-Encryption-with-Constant-Size-Ciphertext" class="headerlink" title="Hierarchical Identity Based Encryption with Constant Size Ciphertext"></a>Hierarchical Identity Based Encryption with Constant Size Ciphertext</h1><blockquote>
+<p>Hierarchical Identity Based Encryption with Constant Size Ciphertext</p>
+<p>HIBE 相关论文</p>
+<ol>
+<li>C. Gentry and A. Silverberg. Hierarchical ID-based cryptography. In Y. Zheng,<br>editor, Proceedings of Asiacrypt 2002, volume 2501 of LNCS, pages 548–66, 2002.</li>
+</ol>
+<p>安全性基于随机谕言机中的BDH假设</p>
+<ol start="2">
+<li><p>D. Boneh and X. Boyen. Efficient selective-ID identity based encryption without<br>random oracles. In C. Cachin and J. Camenisch, editors, Proceedings of Eurocrypt<br>2004, volume 3027 of LNCS, pages 223–38. Springer, 2004.</p>
+</li>
+<li><p>前向安全加密</p>
+</li>
+</ol>
+<p>可周期性更新私钥，使得在周期n加密的信息不能使用n’阶段（n’&gt;n）的私钥读取</p>
+<ol start="4">
+<li>将NNL广播加密系统转换为公钥广播系统</li>
+</ol>
+<p>没有随机谕言机的BDH假设</p>
+</blockquote>
+<h2 id="本文构造"><a href="#本文构造" class="headerlink" title="本文构造"></a>本文构造</h2><ul>
+<li>密文大小、解密消耗都与层级深度 l 独立</li>
+<li>核心：把层级信息从密文挪到指数结构</li>
+</ul>
+<p>HIBE的主体对象</p>
+<p>Root PKG（持 master key）</p>
+<p>各级 PKG（由用户承担）</p>
+<p>发送者（加密）</p>
+<p>接收者（解密）</p>
+<h1 id="一、BKP-HIBE"><a href="#一、BKP-HIBE" class="headerlink" title="一、BKP-HIBE"></a>一、BKP-HIBE</h1><h2 id="Gen-par"><a href="#Gen-par" class="headerlink" title="Gen(par)"></a>Gen(par)</h2><p>👉 执行者：<strong>Root PKG</strong></p>
+<p>输出：</p>
+<ul>
+<li><code>pk</code> → 所有人</li>
+<li><code>dk</code> → 系统内部（给后续生成用）</li>
+<li><code>sk</code> → Root PKG 自己（MAC key 等）</li>
+</ul>
+<hr>
+<h2 id="USKGen-sk-id"><a href="#USKGen-sk-id" class="headerlink" title="USKGen(sk, id)"></a>USKGen(sk, id)</h2><p>👉 执行者：<strong>Root PKG</strong></p>
+<p>👉 作用：</p>
+<blockquote>
+<p>给某个 identity 生成“第一份私钥”</p>
+</blockquote>
+<p>usk[id]  → 给用户<br>udk[id]  → 给用户（用于继续 delegation）</p>
+<p>用户一拿到 (usk, udk)，就“升级为一个 PKG”</p>
+<h2 id="USKDel-dk-usk-id-udk-id-id-→-id′"><a href="#USKDel-dk-usk-id-udk-id-id-→-id′" class="headerlink" title="USKDel(dk, usk[id], udk[id], id → id′)"></a>USKDel(dk, usk[id], udk[id], id → id′)</h2><p>👉 执行者：<strong>当前节点（父 identity）</strong></p>
+<p>输入：</p>
+<ul>
+<li>自己的：<ul>
+<li><code>usk[id]</code></li>
+<li><code>udk[id]</code></li>
+</ul>
+</li>
+<li>公共参数里的 <code>dk</code></li>
+<li>子身份 id′</li>
+</ul>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usk[id′] → 发给子节点</span><br><span class="line">udk[id′] → 发给子节点</span><br></pre></td></tr></table></figure>
+
+<h2 id="Enc-pk-id"><a href="#Enc-pk-id" class="headerlink" title="Enc(pk, id)"></a>Enc(pk, id)</h2><p>👉 执行者：<strong>发送者</strong></p>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C = (c0, c1)</span><br><span class="line">K</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>👉 不需要任何 PKG</p>
+<h2 id="Dec-usk-id-id-C"><a href="#Dec-usk-id-id-C" class="headerlink" title="Dec(usk[id], id, C)"></a>Dec(usk[id], id, C)</h2><p>👉 执行者：<strong>接收者</strong></p>
+<h1 id="二、迁移HIBE"><a href="#二、迁移HIBE" class="headerlink" title="二、迁移HIBE"></a>二、迁移HIBE</h1><h2 id="BKP主干"><a href="#BKP主干" class="headerlink" title="BKP主干"></a>BKP主干</h2><p><code>pk = 对 MAC 秘钥的承诺 </code></p>
+<p><code>usk = MAC tag + 证明</code> </p>
+<p><code> ct = 对公开承诺pk按身份做随机线性组合</code></p>
+<p>依赖 pairing、GS proof、隐式群表示</p>
+<blockquote>
+<p>BKP 的核心主干不是“把秘密群编码起来”这件事本身，而是“把 MAC 验证关系嵌进 IBE 的公钥 &#x2F; 用户密钥 &#x2F; 密文之间的线性一致性里”。</p>
+</blockquote>
+<blockquote>
+<p>GS proof：</p>
+</blockquote>
+<p>FG-IBE替换</p>
+<p> <strong>NC1 里的矩阵承诺 + subset-membership 切换 + 一个 GS-like 证明思路</strong></p>
+<p>利用D0矩阵的具体结构实现hiding</p>
+<p>不能让 delegation material 泄露出足以直接恢复或约束 MAC secret (X,x0)(X,x_0)(X,x0) 的信息，也不能破坏他们依赖的 commitments-hiding &#x2F; switching 证明骨架。</p>
+<blockquote>
+<p>关键继承</p>
+<p>BKP: 群承诺 + pairing 验证 + dual-system 式切换</p>
+<p>FG: 矩阵承诺 + 线性代数验证 + matrix-switching &#x2F; subset-membership 切换</p>
+</blockquote>
+<blockquote>
+<p>设计dk核心思想</p>
+<p><strong>dk 不能直接给出一个让子节点能恢复或强约束 MAC secret 结构的对象；它必须只是支持 delegation 所需的“派生信息”，同时仍然允许维持：</strong></p>
+<ol>
+<li><strong>pk 对 secret 的承诺&#x2F;隐藏；</strong></li>
+<li><strong>user key 可以被模拟；</strong></li>
+<li><strong>challenge ciphertext 仍能被切换成 invalid &#x2F; random；</strong></li>
+<li><strong>从攻击者视角能把对 HIBE 的攻击还原成对 MAC &#x2F; subset-membership 的攻击。</strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>FG 实现HIBE难点</strong></p>
+<p>subset-membership,</p>
+<p>switching A:D0→D1→D0</p>
+<p>改变 r 的首位分布，</p>
+<p>不显式求逆&#x2F;不使用 pairings 的 extractability</p>
+<p>这些技术还没有自然延伸成一个“delegatable affine MAC + fine-grained proof system”的完整层级机制</p>
+</blockquote>
+<h2 id="关键问题"><a href="#关键问题" class="headerlink" title="关键问题"></a>关键问题</h2><ul>
+<li><p><input disabled="" type="checkbox"> 
+delegation 需要哪类线性操作？</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+这些操作能否只靠“派生态”完成？能否给某些吸收了secret的派生矩阵而非直接给B或X？</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+安全证明是否还能走</p>
+<p>USK simulation 不用知道全部 MAC secret；</p>
+<p>challenge 仍可通过两次矩阵分布切换变成可还原到 MAC 的形式；</p>
+<p>不需要矩阵求逆。</p>
+<ul>
+<li><input disabled="" type="checkbox"> 让仿射 MAC 适配 HIBE 的 “身份分层 + 密钥委托” 特性，是构建可委托 HIBE 的核心 MAC 安全属性。</li>
+</ul>
+</li>
+</ul>
+<h1 id="三、安全性"><a href="#三、安全性" class="headerlink" title="三、安全性"></a>三、安全性</h1><h2 id="1-选择明文安全性-CPA-Security"><a href="#1-选择明文安全性-CPA-Security" class="headerlink" title="1.选择明文安全性 (CPA Security)"></a>1.选择明文安全性 (CPA Security)</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><p><strong>选择明文安全性（Chosen-Plaintext Attack, CPA）</strong> 是对称加密与公钥加密中最基础、最常用的安全概念，描述攻击者在<strong>可以任意选择明文并获得对应密文</strong>的情况下，仍然无法攻破加密方案。</p>
+<h3 id="1-2-攻击模型"><a href="#1-2-攻击模型" class="headerlink" title="1.2 攻击模型"></a>1.2 攻击模型</h3><p>攻击者拥有：</p>
+<ul>
+<li>加密算法公开</li>
+<li><strong>可以自由选择任意明文 m，获取其加密后的密文 c</strong></li>
+<li>目标：区分两个明文对应的密文，或恢复密钥 &#x2F; 明文</li>
+</ul>
+<h3 id="1-3-安全游戏（CPA-Game）"><a href="#1-3-安全游戏（CPA-Game）" class="headerlink" title="1.3 安全游戏（CPA Game）"></a>1.3 安全游戏（CPA Game）</h3><ol>
+<li><p>挑战者生成密钥 (pk,sk)</p>
+</li>
+<li><p>攻击者可以多次<strong>询问加密预言机</strong>：提交 m，得到 c&#x3D;Enc(pk,m)</p>
+</li>
+<li><p>攻击者提交两个等长明文 m0,m1</p>
+</li>
+<li><p>挑战者随机选 b∈{0,1}，返回 c∗&#x3D;Enc(pk,mb)</p>
+</li>
+<li><p>攻击者猜测 b</p>
+<p>若攻击者的优势可忽略，则加密方案是CPA 安全的。</p>
+</li>
+</ol>
+<h3 id="1-4-核心意义"><a href="#1-4-核心意义" class="headerlink" title="1.4 核心意义"></a>1.4 核心意义</h3><ul>
+<li>公钥加密<strong>必须满足 CPA 安全</strong>（因为公钥公开，攻击者天然可以任意加密）</li>
+<li>意味着加密必须是<strong>概率性的</strong>（同一明文多次加密得到不同密文）</li>
+<li>确定性加密（如 ECB 模式）<strong>不是 CPA 安全</strong></li>
+</ul>
+<h2 id="2-选择身份攻击-ID-CPA-Selective-ID-Attack"><a href="#2-选择身份攻击-ID-CPA-Selective-ID-Attack" class="headerlink" title="2.选择身份攻击 (ID-CPA &#x2F; Selective-ID Attack)"></a>2.选择身份攻击 (ID-CPA &#x2F; Selective-ID Attack)</h2><p>这个概念主要出现在<strong>基于身份的加密（IBE）</strong>、属性基加密（ABE）等密码体制中。</p>
+<h3 id="2-1-选择身份攻击（Selective-ID-Attack-sID-CPA）"><a href="#2-1-选择身份攻击（Selective-ID-Attack-sID-CPA）" class="headerlink" title="2.1 选择身份攻击（Selective-ID Attack, sID-CPA）"></a>2.1 选择身份攻击（Selective-ID Attack, sID-CPA）</h3><p>攻击者<strong>在系统建立之前，就预先选定一个目标身份 ID∗</strong>，之后再获得系统参数，并尝试攻破该身份的加密安全性。</p>
+<h3 id="2-2-攻击游戏"><a href="#2-2-攻击游戏" class="headerlink" title="2.2 攻击游戏"></a>2.2 攻击游戏</h3><ol>
+<li>攻击者<strong>先宣布要攻击的目标身份 ID∗</strong></li>
+<li>挑战者生成系统参数 PP，主密钥 msk</li>
+<li>攻击者可以询问<strong>任意非目标身份</strong>的私钥</li>
+<li>攻击者提交 m0,m1 与 ID∗，挑战者返回挑战密文</li>
+<li>攻击者猜测比特 b</li>
+</ol>
+<p>若优势可忽略，则方案是<strong>选择身份安全（sID-CPA）</strong>。</p>
+<h3 id="2-3-自适应身份攻击（Adaptive-ID-ID-CPA）"><a href="#2-3-自适应身份攻击（Adaptive-ID-ID-CPA）" class="headerlink" title="2.3 自适应身份攻击（Adaptive-ID, ID-CPA）"></a>2.3 自适应身份攻击（Adaptive-ID, ID-CPA）</h3><p>更强的安全模型：</p>
+<ul>
+<li><p>攻击者<strong>不预先选 ID</strong></p>
+</li>
+<li><p>可以自适应地、任意询问任何身份的私钥</p>
+</li>
+<li><p>最后才选择攻击哪个 ID∗</p>
+</li>
+</ul>
+<h1 id="四、BKP-IBE"><a href="#四、BKP-IBE" class="headerlink" title="四、BKP-IBE"></a>四、BKP-IBE</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/victoriaFeb">fly</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://victoriafeb.github.io/fly.github.io/2026/03/23/HIBE%E6%A2%B3%E7%90%86/">https://victoriafeb.github.io/fly.github.io/2026/03/23/HIBE%E6%A2%B3%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/fly.github.io/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/fly.github.io/img/my-icon.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/fly.github.io/2026/03/23/Agent-Security-Papers/" title="Agent Security Papers"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Agent Security Papers</div></div></div></a><a class="pagination-related  no-desc" href="/fly.github.io/2026/01/25/Theory1/" title="Theory1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Theory1</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/fly.github.io/img/my-icon.jpg" onerror="this.onerror=null;this.src='/fly.github.io/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">fly</div><div class="author-info-description">无限学习，永不停息</div><div class="site-data"><a href="/fly.github.io/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/fly.github.io/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/fly.github.io/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/victoriaFeb"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/victoriaFeb" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">“记录第一个五年”</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hierarchical-Identity-Based-Encryption-with-Constant-Size-Ciphertext"><span class="toc-number">1.</span> <span class="toc-text">Hierarchical Identity Based Encryption with Constant Size Ciphertext</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%9E%84%E9%80%A0"><span class="toc-number">1.1.</span> <span class="toc-text">本文构造</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81BKP-HIBE"><span class="toc-number">2.</span> <span class="toc-text">一、BKP-HIBE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gen-par"><span class="toc-number">2.1.</span> <span class="toc-text">Gen(par)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#USKGen-sk-id"><span class="toc-number">2.2.</span> <span class="toc-text">USKGen(sk, id)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#USKDel-dk-usk-id-udk-id-id-%E2%86%92-id%E2%80%B2"><span class="toc-number">2.3.</span> <span class="toc-text">USKDel(dk, usk[id], udk[id], id → id′)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enc-pk-id"><span class="toc-number">2.4.</span> <span class="toc-text">Enc(pk, id)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dec-usk-id-id-C"><span class="toc-number">2.5.</span> <span class="toc-text">Dec(usk[id], id, C)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%BF%81%E7%A7%BBHIBE"><span class="toc-number">3.</span> <span class="toc-text">二、迁移HIBE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BKP%E4%B8%BB%E5%B9%B2"><span class="toc-number">3.1.</span> <span class="toc-text">BKP主干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.</span> <span class="toc-text">关键问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E5%85%A8%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">三、安全性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%80%89%E6%8B%A9%E6%98%8E%E6%96%87%E5%AE%89%E5%85%A8%E6%80%A7-CPA-Security"><span class="toc-number">4.1.</span> <span class="toc-text">1.选择明文安全性 (CPA Security)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%9A%E4%B9%89"><span class="toc-number">4.1.1.</span> <span class="toc-text">1.1 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.2.</span> <span class="toc-text">1.2 攻击模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%AE%89%E5%85%A8%E6%B8%B8%E6%88%8F%EF%BC%88CPA-Game%EF%BC%89"><span class="toc-number">4.1.3.</span> <span class="toc-text">1.3 安全游戏（CPA Game）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%A0%B8%E5%BF%83%E6%84%8F%E4%B9%89"><span class="toc-number">4.1.4.</span> <span class="toc-text">1.4 核心意义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%80%89%E6%8B%A9%E8%BA%AB%E4%BB%BD%E6%94%BB%E5%87%BB-ID-CPA-Selective-ID-Attack"><span class="toc-number">4.2.</span> <span class="toc-text">2.选择身份攻击 (ID-CPA &#x2F; Selective-ID Attack)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%80%89%E6%8B%A9%E8%BA%AB%E4%BB%BD%E6%94%BB%E5%87%BB%EF%BC%88Selective-ID-Attack-sID-CPA%EF%BC%89"><span class="toc-number">4.2.1.</span> <span class="toc-text">2.1 选择身份攻击（Selective-ID Attack, sID-CPA）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%94%BB%E5%87%BB%E6%B8%B8%E6%88%8F"><span class="toc-number">4.2.2.</span> <span class="toc-text">2.2 攻击游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%87%AA%E9%80%82%E5%BA%94%E8%BA%AB%E4%BB%BD%E6%94%BB%E5%87%BB%EF%BC%88Adaptive-ID-ID-CPA%EF%BC%89"><span class="toc-number">4.2.3.</span> <span class="toc-text">2.3 自适应身份攻击（Adaptive-ID, ID-CPA）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81BKP-IBE"><span class="toc-number">5.</span> <span class="toc-text">四、BKP-IBE</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/fly.github.io/2026/08/27/computer-organization/" title="计组">计组</a><time datetime="2026-08-27T02:00:00.000Z" title="Created 2026-08-27 10:00:00">2026-08-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/fly.github.io/2026/03/24/%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/" title="Untitled">Untitled</a><time datetime="2026-03-24T03:45:29.580Z" title="Created 2026-03-24 11:45:29">2026-03-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/fly.github.io/2026/03/23/Agent-Security-Papers/" title="Agent Security Papers">Agent Security Papers</a><time datetime="2026-03-23T08:09:06.000Z" title="Created 2026-03-23 16:09:06">2026-03-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/fly.github.io/2026/03/23/HIBE%E6%A2%B3%E7%90%86/" title="HIBE梳理">HIBE梳理</a><time datetime="2026-03-23T01:34:28.000Z" title="Created 2026-03-23 09:34:28">2026-03-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/fly.github.io/2026/01/25/Theory1/" title="Theory1">Theory1</a><time datetime="2026-01-25T00:45:54.000Z" title="Created 2026-01-25 08:45:54">2026-01-25</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By fly</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/fly.github.io/js/utils.js?v=5.5.3"></script><script src="/fly.github.io/js/main.js?v=5.5.3"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
